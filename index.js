@@ -1,18 +1,23 @@
 //Setting up the express app
-import express from 'express';
+const express = require("express");
 const app = express();
 
-import bodyParser from 'body-parser';
+const bodyParser = require("body-parser");
 
 //importing the database
-import db from "./db/todos.js";
+const todos =  [
+    {
+      id: 1,
+      title: "lunch",
+      description: "Go for lunch by 2pm"
+    }
+];
 
 //middlewares
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-const port = 8000;
-const hostname = 'localhost';
+
 
 app.get('/', (req,res)=>{
     res.send("Welcome to the todo api")
@@ -23,8 +28,9 @@ app.get('/api/v1/todos',(req,res)=>{
     res.status(200).send({
         success: 'true',
         message: 'todos retrieved successfully',
-        todos: db
+        todos: todos
     });
+
 })
 
 //creating a todo
@@ -57,8 +63,5 @@ app.post('/api/v1/todos',(req,res)=>{
 })
 
 
+module.exports = app;
 
-
-app.listen(port, hostname,()=>{
-    console.log(`Server is running at ${port}`)
-});
