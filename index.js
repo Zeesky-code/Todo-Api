@@ -28,7 +28,7 @@ app.get('/api/v1/todos',(req,res)=>{
     res.status(200).send({
         success: 'true',
         message: 'todos retrieved successfully',
-        todos: todos
+        todos
     });
 
 })
@@ -48,19 +48,19 @@ app.post('/api/v1/todos',(req,res)=>{
         });
     }
     const todo={
-        id: db.length +1,
+        id: todos.length +1,
         title: req.body.title,
         description: req.body.description
     }
 
-    db.push(todo)
-    console.log(db)
+    todos.push(todo)
     return res.status(201).send({
         success: 'true',
         message: 'todo added successfully',
-        todo
+        todos
     })
 })
+
 
 
 module.exports = app;
