@@ -62,6 +62,19 @@ app.post('/api/v1/todos',(req,res)=>{
 })
 
 
+//deleting a todo
+app.delete('/api/v1/todos/:id',(req,res)=>{
+    const id = req.params.id
+    const index = todos.findIndex(todo => todo.id == id)
+    if (index == -1) {
+        return res.status(404).send("todo not found")
+    }
+    todos.splice(index, 1)
+    return res.status(200).send({
+        success: 'true',
+        message: 'Todo deleted successfully'
+    })
+})
 
 module.exports = app;
 
