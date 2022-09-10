@@ -61,13 +61,53 @@ app.post('/api/v1/todos',(req,res)=>{
     })
 })
 
+//updating a todo
+app.put('/api/v1/todos/:id', (req,res)=>{
+    const id = req.params.id
+    const index = todos.findIndex(todo => todo.id == id)
+
+    if (index == -1){
+        return res.status(404).send({
+        success: 'false',
+        message: 'todo not found'
+        })
+    }
+    if (!req.body.title){
+        return res.status(400).send({
+            success: 'false',
+            message: 'title is required'
+        })
+    } else if(!req.body.description){
+        return res.status(400).send({
+            success: 'false',
+            message: 'description is required'
+        })
+    }
+
+    const updatedTodo = {
+        id: id,
+        title: req.body.title,
+        description: req.body.description
+    }
+
+    //replacing the todo with the original
+    todos.splice(index, 1, updatedTodo)
+    return res.status(201).send({
+        success: 'true',
+        message: 'todo updated successfully',
+        updatedTodo
+    })
+})
 
 //deleting a todo
 app.delete('/api/v1/todos/:id',(req,res)=>{
     const id = req.params.id
     const index = todos.findIndex(todo => todo.id == id)
     if (index == -1) {
-        return res.status(404).send("todo not found")
+        return res.status(404).send({
+            success: 'false',
+            message: 'todo not found'
+        })
     }
     todos.splice(index, 1)
     return res.status(200).send({
