@@ -1,4 +1,4 @@
-const app = require("./index")
+const app = require("./app")
 
 const port = 8000;
 const hostname = 'localhost';

@@ -33,6 +33,28 @@ app.get('/api/v1/todos',(req,res)=>{
 
 })
 
+
+//getting one todo
+
+app.get('/api/v1/todos/:id',(req,res)=>{
+    const id = req.params.id
+    const index = todos.findIndex(todo => todo.id == id)
+
+    if (index == -1){
+        return res.status(404).send({
+        success: 'false',
+        message: 'todo not found'
+        })
+    }
+    res.status(200).send({
+        success: 'true',
+        message: 'todo retrieved successfully',
+        todo: todos[index]
+    });
+
+})
+
+
 //creating a todo
 
 app.post('/api/v1/todos',(req,res)=>{
