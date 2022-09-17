@@ -2,7 +2,7 @@
   "name": "todo-api",
   "version": "1.0.0",
   "description": "A RESTful todo api with node.js and express.js",
-  "main": "server.js",
+  "main": "app.js",
   "scripts": {
     "test": "jest --coverage",
     "start": "nodemon server.js"
